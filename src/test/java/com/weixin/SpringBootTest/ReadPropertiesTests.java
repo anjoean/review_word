@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Assert;
 
 /**
- * @author yan.yuchen111@ztesoft.com
+ * @author yan.yuchen111@ztesoft.weixin
  * @create 2019/1/14
  * @since 1.0.0
  */

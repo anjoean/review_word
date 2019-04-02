@@ -7,10 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
- * @author yan.yuchen111@ztesoft.com
+ * @author yan.yuchen111@ztesoft.weixin
  * @create 2019/1/13
  * @since 1.0.0
  */
@@ -30,9 +31,29 @@ public class WordServiceImpl implements wordService {
     @Override
     public
     List<java.util.Map<java.lang.String,java.lang.Object>> getMeans(String words){
-        String sql = "select  c.partofspeech,m.means from  cixing c,words w,means m where c.posID=m.posID and w.ID = m.wordID and w.word = ?";
+        String sql = "select  c.partofspeech,m.means,w.voice from  cixing c,words w,means m where c.posID=m.posID and w.ID = m.wordID and w.word = ?";
         List<java.util.Map<java.lang.String,java.lang.Object>> x =  jdbcTemplate.queryForList(sql, new Object[]{words});
         return x;
+    }
+
+    @Override
+    public void insertPdfWord (String sql){
+        jdbcTemplate.update(sql);
+    }
+
+    @Override
+    public boolean isPlural (String word){
+        Boolean isPlural = false;
+        String qryMeans = "select  m.means from  cixing c,words w,means m where c.posID=m.posID and w.ID = m.wordID and w.word = ?";
+        List<Map<String,Object>> meanList = jdbcTemplate.queryForList(qryMeans, new Object[]{word});
+        for( Map map : meanList){
+            String means = map.get("means").toString();
+            if(means.contains("名词复数")||means.contains("复数形式")){
+                isPlural = true;
+                break;
+            }
+        }
+        return isPlural;
     }
 
 }

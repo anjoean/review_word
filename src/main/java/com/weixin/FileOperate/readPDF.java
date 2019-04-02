@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * @author yan.yuchen111@ztesoft.com
+ * @author yan.yuchen111@ztesoft.weixin
  * @create 2019/1/12
  * @since 1.0.0
  */
